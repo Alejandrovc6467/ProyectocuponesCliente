@@ -1,0 +1,7 @@
+{
+  "name": "ProyectocuponesCliente",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
