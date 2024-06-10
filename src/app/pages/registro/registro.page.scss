@@ -1,0 +1,80 @@
+
+ion-content {
+    --background: linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.1)),
+                url('/assets/wallpaperLogin.jpg') no-repeat center center / cover;
+  }
+  
+  
+  
+  
+  .login-section {
+    height: 90vh;
+    width: 100%;
+    max-width: 550px;
+    background: #fff;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: fixed;
+    margin: auto;
+    border-top-left-radius: 46px;
+    border-top-right-radius: 46px;
+    overflow-y: auto;
+  
+  
+    .heading {
+      color: gray;
+  
+      h2 {
+        color: rgb(65, 65, 65);
+      }
+    }
+  
+    .fecha{
+      color: gray;
+    }
+    
+    ion-item {
+      --background: rgb(255, 255, 255);
+      margin-bottom: 10px;
+  
+      ion-label {
+        color: gray !important;
+      }
+  
+      ion-input {
+        color: gray !important;
+      }
+  
+      ion-input:focus + ion-label {
+        color: gray !important; 
+      }
+    }
+  
+  
+    ion-datetime{
+      background: white;
+      color: gray;
+    }
+  
+  
+  
+    ion-button.iniciar-btn {
+      --background: #0048ff; /* Color de fondo rojo para el botón iniciar sesión */
+      --border-radius: 15px;
+      color: white;
+      margin-top: 40px;
+    }
+  
+  
+  
+    ion-button.registrar-btn {
+      --background: transparent; /* Color de fondo verde para el botón registrarse */
+      --border-radius: 15px;
+      color: #6e81b1;
+      margin-top: 20px;
+    }
+  
+  
+  
+  }

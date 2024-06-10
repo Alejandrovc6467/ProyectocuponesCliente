@@ -1,0 +1,87 @@
+
+
+
+
+<ion-menu contentId="main-content" >
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      
+      <ion-menu-toggle>
+        <ion-item routerLink="/cupones">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>cupones</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item routerLink="/reservas">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>Historial de compras</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item routerLink="/inicio-sesion">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          <ion-label>Salir</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+
+
+
+
+<ion-content id="main-content" class="contenidoConciertos">
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-title>Historial de compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="conciertos-list">
+
+    <ion-list-header class="header">
+      <ion-label>Estas son tus cupones!</ion-label>
+    </ion-list-header>
+
+
+    <div *ngFor="let cupon of cupones" class="content-wrapper">
+      <ion-thumbnail>
+        <img [alt]="cupon.nombre" [src]="cupon.imagenUrl" />
+      </ion-thumbnail>
+      <ion-label>
+        <h1>{{ cupon.nombre }}</h1>
+        <p> <b>Categoria: </b>{{ cupon.nombreCategoria}}</p>
+        <p> <b>Precio: </b>₡{{ cupon.precio }}</p>
+        <p> <b>fecha de caducidad: </b> {{ cupon.fechaCaducado }}</p>
+        <p> <b>Ubicacion: </b> {{ cupon.ubicacionEmpresa }}</p>
+        <br>
+      </ion-label>
+    </div>
+
+    
+  </ion-list>
+
+</ion-content>
+
+
+
+</ion-content>

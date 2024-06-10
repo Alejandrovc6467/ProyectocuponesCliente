@@ -1,0 +1,99 @@
+
+
+
+
+<ion-menu contentId="main-content" >
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      
+      <ion-menu-toggle>
+        <ion-item routerLink="/cupones">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>cupones</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item routerLink="/reservas">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-label>Historial de compras</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item routerLink="/inicio-sesion">
+          <ion-icon name="settings-outline" slot="start"></ion-icon>
+          <ion-label>Salir</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+
+
+<ion-content id="main-content" class="contenidoConciertos">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-toggle>
+          <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+      <ion-title>Realizar Pago</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content >
+
+
+    <form [formGroup]="realizarPagoForm" (ngSubmit)="realizarPago()">
+      <ion-item class="ion-padding">
+        <ion-label position="floating">Nombre Tarjeta</ion-label>
+        <ion-input formControlName="nombreTargeta"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-padding">
+        <ion-label position="floating">Numero  Tarjeta</ion-label>
+        <ion-input formControlName="numeroTargeta"   (ionInput)="aplicarMascaraNumeroTarjeta($event)" ></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-padding">
+        <ion-label position="floating">Fecha Vencimiento</ion-label>
+        <ion-input formControlName="fechaVencimiento"></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-padding">
+        <ion-label position="floating">CVV  Tarjeta</ion-label>
+        <ion-input formControlName="cvv"></ion-input>
+      </ion-item>
+
+      <h2>Total IVA: ₡{{ montoTotalApagar }}</h2>
+      <ion-button class="iniciar-btn ion-padding" expand="block" type="submit" [disabled]="realizarPagoForm.invalid">Realizar Pago</ion-button>
+
+    </form>
+      
+  
+  </ion-content> 
+
+
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+

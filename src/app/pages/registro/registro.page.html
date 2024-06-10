@@ -1,0 +1,42 @@
+<ion-content>
+
+  <div class="login-section ion-padding">
+
+    <div class="heading ion-padding">
+      <h2>Crea una cuenta!</h2>
+      <p>Disfruta de las mejores promociones en cupones</p>
+    </div>
+  
+    <form [formGroup]="registroForm" (ngSubmit)="registro()">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input formControlName="apellidos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cédula</ion-label>
+        <ion-input formControlName="cedula" (keyup)="aplicarMascaraCedula($event)"></ion-input>
+      </ion-item>
+      
+      <br><ion-label class="fecha ion-padding" position="floating">Fecha de nacimiento</ion-label> <br>
+      <ion-datetime formControlName="fechaNacimiento" displayFormat="DD/MM/YYYY" placeholder="Seleccionar fecha"  presentation="date"></ion-datetime>
+     
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-button class="iniciar-btn" expand="block" type="submit" [disabled]="registroForm.invalid">
+        Registrarse
+      </ion-button>
+    </form>
+    <ion-button routerLink="/inicio-sesion" class="registrar-btn" expand="block" fill="outline">Regresar</ion-button>
+
+  </div>
+</ion-content>

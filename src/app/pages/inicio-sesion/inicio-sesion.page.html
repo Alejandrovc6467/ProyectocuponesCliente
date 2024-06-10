@@ -1,0 +1,24 @@
+<ion-content>
+
+  <div class="login-section ion-padding">
+
+    <div class="heading ion-padding">
+      <h2>Bienvenido a Cupones Atlantico!</h2>
+      <p>Inicia sesión</p>
+    </div>
+    
+    <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="login()">
+      <ion-item>
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item>
+      <ion-button  class="iniciar-btn" expand="block" type="submit" [disabled]="loginForm?.invalid">Iniciar sesión</ion-button>
+    </form>
+    <ion-button class="registrar-btn" expand="block" fill="outline" (click)="register()">Registrarse</ion-button>
+  </div>
+  
+</ion-content>
