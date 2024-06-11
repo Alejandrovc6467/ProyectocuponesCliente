@@ -136,10 +136,13 @@ export class PagoPage implements OnInit {
         return
       }
 
+      var tarjetaEncriptada=this.proyectocuponesService.encrypt(numeroTargeta);
+      console.log(tarjetaEncriptada);
+
       var cuponesID=this.cargarAsientosEnFactura();
 
        // Llama al servicio de autenticación
-      this.proyectocuponesService.registrarVenta( cuponesID,numeroTargeta,correo ).subscribe(
+      this.proyectocuponesService.registrarVenta( cuponesID,tarjetaEncriptada,correo ).subscribe(
         (response) => {
 
           if(response == true){

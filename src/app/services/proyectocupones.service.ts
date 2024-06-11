@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+import * as CryptoJS from 'crypto-js';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,8 +18,23 @@ export class ProyectocuponesService {
   private urlObtenerCuponesCorreo='https://localhost:5080/api/Cupon';
   private urlObtenerCategorias='http://localhost/ProyectoCupones/Categorias.php';
 
+  private key: string = '01234567890123456789012345678901'; // Debe ser almacenado de manera segura
+
 
   constructor(private http: HttpClient) { }
+
+
+  encrypt(data: string): string {
+    const key = CryptoJS.enc.Utf8.parse(this.key);
+    const iv = CryptoJS.lib.WordArray.random(16);
+    const encrypted = CryptoJS.AES.encrypt(data, key, {
+      iv: iv,
+      padding: CryptoJS.pad.Pkcs7,
+      mode: CryptoJS.mode.CBC
+    });
+    const result = iv.concat(encrypted.ciphertext).toString(CryptoJS.enc.Base64);
+    return result;
+  }
 
 
   login(email: string, password: string): Observable<any> {
