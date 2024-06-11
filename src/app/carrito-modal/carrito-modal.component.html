@@ -15,7 +15,7 @@
       </ion-thumbnail>
       <ion-label>
         <h2>{{ cupon.nombre }}</h2>
-        <p>Precio: ₡{{ cupon.precio}}</p>
+        <p>Precio:  ₡{{ cupon.descuento == 0 ? cupon.precio : cupon.precioConDescuento }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

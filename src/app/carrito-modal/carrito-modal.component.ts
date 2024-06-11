@@ -17,11 +17,20 @@ export class CarritoModalComponent {
     private navCtrl: NavController  
   ) {}
 
+  /*
   get total(): number {
     return this.cupones.reduce(
       (acc, cupon) => acc + parseFloat(cupon.precio.toString()),
       0
     );
+  }
+    */
+
+  get total(): number {
+    return this.cupones.reduce((acc, cupon) => {
+      const precioAUtilizar = cupon.descuento > 0 ? cupon.precioConDescuento : cupon.precio;
+      return acc + parseFloat(precioAUtilizar.toString());
+    }, 0);
   }
 
   dismiss() {

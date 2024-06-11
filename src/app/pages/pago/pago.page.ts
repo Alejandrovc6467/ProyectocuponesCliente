@@ -18,18 +18,22 @@ import { AlertController } from '@ionic/angular';
 })
 export class PagoPage implements OnInit {
   numeroTargetaControl!: FormControl;
+  fechaVencimientoControl!: FormControl;
   realizarPagoForm: FormGroup;
   cuponesSeleccionados: Cupon[] = []; // Suponiendo que tienes un array de cupones seleccionados
   asientosAmostrarEnFactura: string = '';
 
   concierto: any;
   montoTotalApagar: number=0;
-
+  
   constructor(
     private fb: FormBuilder,
     private proyectocuponesService: ProyectocuponesService,
     private alertController: AlertController
+    
   ) {
+
+   
     this.realizarPagoForm = this.fb.group({
       nombreTargeta: ['', Validators.required],
       numeroTargeta: ['', Validators.required],
@@ -51,11 +55,16 @@ export class PagoPage implements OnInit {
       'numeroTargeta'
     ) as FormControl;
 
+    this.fechaVencimientoControl = this.realizarPagoForm.get(
+      'fechaVencimiento') as FormControl;
+    
+
     this.calcularMontoApagar();
 
     this.cargarAsientosEnFactura();
   }
 
+  /*
   calcularMontoApagar() {
     const montoTotalApagara = this.cuponesSeleccionados.reduce((acc, cupon) => {
       
@@ -66,6 +75,18 @@ export class PagoPage implements OnInit {
     }, 0);
     
 
+    this.montoTotalApagar = parseFloat(montoTotalApagara.toFixed(2));
+  }
+    */
+
+  calcularMontoApagar() {
+    const montoTotalApagara = this.cuponesSeleccionados.reduce((acc, cupon) => {
+      const precioBase = cupon.descuento > 0 ? cupon.precioConDescuento : cupon.precio;
+      const precioConImpuesto = precioBase * 1.13;
+  
+      return acc + precioConImpuesto;
+    }, 0);
+  
     this.montoTotalApagar = parseFloat(montoTotalApagara.toFixed(2));
   }
 
@@ -100,10 +121,25 @@ export class PagoPage implements OnInit {
       console.log("targeta valida");
 
 
+      if(!this.validarFechaVencimiento(fechaVencimiento)){
+          alert("Fecha invalida");
+          return;
+      }
+
+      if(!this.validarFechaVencimientoMayorActual(fechaVencimiento)){
+          alert("La fecha de vencimiento debe ser mayor que la actual");
+          return;
+      }
+
+      if(!this.validarCVV(cvv)){
+        alert("El CVV debe conteber solo tres numeros");
+        return
+      }
+
       var cuponesID=this.cargarAsientosEnFactura();
 
        // Llama al servicio de autenticación
-       this.proyectocuponesService.registrarVenta( cuponesID,numeroTargeta,correo ).subscribe(
+      this.proyectocuponesService.registrarVenta( cuponesID,numeroTargeta,correo ).subscribe(
         (response) => {
 
           if(response == true){
@@ -160,6 +196,53 @@ export class PagoPage implements OnInit {
     } else {
       console.log('Formulario inválido');
     }
+  }
+
+
+  validarFechaVencimiento(fechaVencimiento: string): boolean {
+    // Expresión regular para validar la fecha de vencimiento (MM/AA)
+    const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  
+    // Verificar si la fecha de vencimiento cumple con el formato MM/AA
+    return regex.test(fechaVencimiento);
+  }
+
+  validarCVV(cvv: string): boolean {
+    // Expresión regular para validar el CVV (3 dígitos numéricos)
+    const regex = /^\d{3}$/;
+  
+    // Verificar si el CVV cumple con el formato de 3 dígitos
+    return regex.test(cvv);
+  }
+
+
+  validarFechaVencimientoMayorActual(fechaVencimiento: string): boolean {
+    const fechaActual = new Date();
+    const [mes, anio] = fechaVencimiento.split('/');
+    const fechaVencimientoObj = new Date(parseInt(anio, 10) + 2000, parseInt(mes, 10) - 1);
+  
+    // Verificar si la fecha de vencimiento es mayor que la fecha actual
+    return fechaVencimientoObj > fechaActual;
+  }
+ 
+
+
+  aplicarMascaraFechaVencimiento(event: any) {
+    let valor = event.target.value;
+  
+    // Eliminar cualquier carácter que no sea un dígito o un guión
+    valor = valor.replace(/[^\d\/]/g, '');
+  
+    valor = valor.slice(0, 5); // Limitar la longitud de la cadena a 5 caracteres (MM/AA)
+  
+    // Insertar el guión automáticamente
+    if (valor.length > 2 && valor.charAt(2) !== '/') {
+      valor = valor.slice(0, 2) + '/' + valor.slice(2);
+    }
+  
+    // Actualizar el valor del input con la máscara aplicada
+    event.target.value = valor;
+    this.fechaVencimientoControl.setValue(valor, { emitEvent: false }); // Actualizar el control de formulario
   }
 
   aplicarMascaraNumeroTarjeta(event: any) {

@@ -68,7 +68,7 @@
 
       <ion-item class="ion-padding">
         <ion-label position="floating">Fecha Vencimiento</ion-label>
-        <ion-input formControlName="fechaVencimiento"></ion-input>
+        <ion-input formControlName="fechaVencimiento" (ionInput)="aplicarMascaraFechaVencimiento($event)"></ion-input>
       </ion-item>
 
       <ion-item class="ion-padding">

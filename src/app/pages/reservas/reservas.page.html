@@ -68,12 +68,25 @@
         <img [alt]="cupon.nombre" [src]="cupon.imagenUrl" />
       </ion-thumbnail>
       <ion-label>
+        
         <h1>{{ cupon.nombre }}</h1>
-        <p> <b>Categoria: </b>{{ cupon.nombreCategoria}}</p>
-        <p> <b>Precio: </b>₡{{ cupon.precio }}</p>
-        <p> <b>fecha de caducidad: </b> {{ cupon.fechaCaducado }}</p>
-        <p> <b>Ubicacion: </b> {{ cupon.ubicacionEmpresa }}</p>
-        <br>
+        <p>{{cupon.nombreCategoria}}</p>
+
+        <div class="precioCupon">
+          <p>₡{{ cupon.descuento == 0 ? cupon.precio : cupon.precioConDescuento }}</p>
+          <p>{{ cupon.descuento }}%</p>
+        </div>
+
+        <div class="precioCuponSinDescuento">
+          <p class="textoSecCupon">₡{{ cupon.precio }}</p>
+          <p class="textoSecCupon">Desc.</p>
+        </div>
+
+        <div class="fechasExpCupon">
+          <p>Exp Cupon: {{ cupon.fechaCaducado }}</p>
+         
+        </div>
+
       </ion-label>
     </div>
 
