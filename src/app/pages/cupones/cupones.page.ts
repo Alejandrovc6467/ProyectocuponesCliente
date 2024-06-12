@@ -19,7 +19,7 @@ export class CuponesPage implements OnInit {
 
   //nuevo
   cuponesFiltrados: Cupon[] = [];
-  categoriaSeleccionada: string = 'Bebidas';
+  categoriaSeleccionada: string = 'Todo';
 
   categorias: Categoria[]=[];
 
@@ -53,10 +53,31 @@ export class CuponesPage implements OnInit {
 
   //nuevo
   filtrarCupones() {
-    this.cuponesFiltrados = this.cupones.filter(
-      (cupon) => cupon.nombreCategoria === this.categoriaSeleccionada
-    );
+    if (this.categoriaSeleccionada === 'Todo') {
+      this.cuponesFiltrados = this.cupones;
+    } else {
+      this.cuponesFiltrados = this.cupones.filter(
+        (cupon) => cupon.nombreCategoria === this.categoriaSeleccionada
+      );
+    }
   }
+
+
+  buscarCupones(event: any) {
+    
+    const texto = event.target.value.toLowerCase();
+    console.log(texto);
+    this.cuponesFiltrados = this.cupones.filter(cupon => {
+      return cupon.nombre.toLowerCase().includes(texto);
+    });
+  }
+
+
+
+
+
+
+
 
   async openCart() {
     var carrito = localStorage.getItem('datosCarrito');

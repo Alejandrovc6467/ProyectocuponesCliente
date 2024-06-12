@@ -69,8 +69,13 @@
     <ion-item>
       <ion-label>Categoría</ion-label>
       <ion-select [(ngModel)]="categoriaSeleccionada" (ionChange)="filtrarCupones()">
+        <ion-select-option value="Todo">Todo</ion-select-option>
         <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</ion-select-option>
       </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-searchbar (ionChange)="buscarCupones($event)" placeholder="Buscar cupón"></ion-searchbar>
     </ion-item>
 
 

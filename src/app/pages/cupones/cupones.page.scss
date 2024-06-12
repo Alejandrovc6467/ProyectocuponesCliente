@@ -65,6 +65,18 @@ ion-content{
       color: gray;
       border-radius: 8px;
       margin-bottom: 16px;
+
+    }
+
+    ion-searchbar {
+      --placeholder-color: rgb(20, 20, 20);
+      --icon-color: rgb(37, 37, 37);
+      --background: white; /* Agregado */
+      margin-bottom: 50px;
+    }
+
+    ion-searchbar input {
+      color: rgb(0, 0, 0);
     }
     
     ion-select {
@@ -77,6 +89,8 @@ ion-content{
       --placeholder-opacity: 1;
     }
 
+
+    
 
     .header{
       color: gray;
