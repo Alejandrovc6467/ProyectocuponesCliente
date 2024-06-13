@@ -18,6 +18,10 @@ export class ProyectocuponesService {
   private urlObtenerCuponesCorreo='https://localhost:5080/api/Cupon';
   private urlObtenerCategorias='http://localhost/ProyectoCupones/Categorias.php';
 
+
+  private apiUrlEnviarEmail = 'https://localhost:5080/api/Correo';
+
+
   private key: string = '01234567890123456789012345678901'; // Debe ser almacenado de manera segura
 
 
@@ -88,6 +92,20 @@ export class ProyectocuponesService {
     
   }
 
+  enviarCorreo(correo: string, nombreCupones:string, motonTotal: string): Observable<any> {
+    
+    const data = {
+      correo: correo,
+      nombreCupones: nombreCupones,
+      montoTotal: motonTotal
+    };
+
+   
+    
+    return this.http.post(this.apiUrlEnviarEmail, data);
+
+  }
+
   registrarVenta( cuponesID: number [],tarjeta:string ,correo: string): Observable<any> {
     
     const data = {
@@ -109,6 +127,9 @@ export class ProyectocuponesService {
   }
 
 }
+
+
+
 
 
 export interface Cupon {

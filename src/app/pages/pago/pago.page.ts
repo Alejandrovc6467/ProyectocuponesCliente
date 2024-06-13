@@ -97,6 +97,40 @@ export class PagoPage implements OnInit {
 
     
   }
+    
+
+  cargarNomresCupones() {
+    return this.cuponesSeleccionados.map(cupon => cupon.nombre).join(', ');
+  }
+
+
+  enviarCorreo (correo:string, nombreCupones:string, motonTotal:string ){
+    // Llama al servicio de autenticación
+    this.proyectocuponesService.enviarCorreo(correo, nombreCupones, motonTotal ).subscribe(
+      (response) => {
+
+        if(response == true){
+          
+         console.log("Correo enviado");
+
+        
+        }else{
+
+          console.log("Correo enviado");
+        
+        }
+
+        
+      },
+      (error) => {
+
+        // Manejar el error
+        
+        console.error('Ocurrio un error al enviar el correo:', error);
+
+      }
+    );
+  }
 
   realizarPago() {
     if (this.realizarPagoForm.valid) {
@@ -157,6 +191,12 @@ export class PagoPage implements OnInit {
                 alert.present();
             })
           
+
+            
+            localStorage.setItem('datosCarrito', JSON.stringify([]));
+
+            var nombreCupones = this.cargarNomresCupones();
+            this.enviarCorreo (correo, nombreCupones, this.montoTotalApagar.toString() );
 
           }else{
 
